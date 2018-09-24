@@ -22,30 +22,33 @@ int main(void) {
 
   int t;
   scanf("%d", &t); // case test
-  if (t > 100 || t <= 0) { // case test condition
+  if (t > 100 && t <= 0) { // case test condition
     return 0;
   }
   int arr[t];
 
-  int i = 0;
-  while (i < t) {
+  int i;
+  for (size_t i = 0; i < t; i++) {
     node * ROOT = NULL;
-    size_t n, j = 0;
+    int n, j = 0;
     scanf("%d", &n);
     int array[n];
 
-    while (j < n) {
-      scanf("%d", &array[j]);
-      if (ROOT == NULL) {
-        ROOT = createtree(array[j]);
-      }else {
-        insert(array[j], ROOT);
+    if (n > 0) {
+      while (j < n) {
+        scanf("%d", &array[j]);
+        if (array[j] != -1) {
+          if (ROOT == NULL) {
+            ROOT = createtree(array[j]);
+          }else {
+            insert(array[j], ROOT);
+          }
+        }
+        j++;
       }
-      j++;
     }
 
     arr[i] = check(ROOT);
-    i++;
   }
 
   i = 0;
@@ -132,7 +135,6 @@ int check(node * root) {
   int esq = height(root->left);
   int dir = height(root->right);
   int result = dir - esq;
-  printf("%d\n", result);
 
   if (result > 1 || result < -1) {
     return 0;
